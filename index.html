@@ -1,1 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Project | Terminal</title>
+    <style>
+        /* CSS STYLE */
+        :root {
+            --primary: #00FF41; /* Vert Matrix */
+            --bg: #0a0a0a;
+            --surface: #111;
+        }
 
+        body {
+            background-color: var(--bg);
+            color: var(--primary);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .terminal {
+            width: 90%;
+            max-width: 800px;
+            height: 500px;
+            background: var(--surface);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            display: flex;
+            flex-direction: column;
+            border-radius: 5px;
+        }
+
+        .top-bar {
+            background: #222;
+            padding: 5px 15px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .content {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .line { margin-bottom: 10px; line-height: 1.4; }
+        
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: var(--primary);
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        a { color: white; text-decoration: none; border-bottom: 1px dashed white; }
+        a:hover { color: var(--primary); border-bottom: 1px solid var(--primary); }
+
+        .scan-anim { color: white; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="terminal">
+    <div class="top-bar">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span style="margin-left: 10px; font-size: 12px; color: #666;">bash — session_shadow</span>
+    </div>
+    <div class="content" id="terminal-content">
+        <div class="line"> > Initialisation du système...</div>
+        <div class="line"> > Chargement des modules réseau... [OK]</div>
+        <div class="line" class="scan-anim"> > SCANNING NETWORK: 10.0.0.1... 10.0.0.254...</div>
+        <div class="line">----------------------------------------</div>
+        <div class="line">PROJET : <span style="color:white">SHADOW SNIFFER V1</span></div>
+        <div class="line">STATUT : <span style="color:white">En développement</span></div>
+        <div class="line">LIEN : <a href="https://github.com/ton-pseudo/ton-repo">Accéder au code source</a></div>
+        <div class="line">----------------------------------------</div>
+        <div class="line"> > <span id="text"></span><span class="cursor"></span></div>
+    </div>
+</div>
+
+<script>
+    // Petit effet de texte qui s'écrit tout seul
+    const text = "Bienvenue sur mon espace de test réseau. Système sécurisé. Prêt pour l'interception.";
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("text").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        }
+    }
+    window.onload = typeWriter;
+</script>
+
+</body>
+</html>
